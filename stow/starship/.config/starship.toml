@@ -1,0 +1,133 @@
+format = """
+[┌─](#ffffff)$shlvl$username$hostname$directory$git_branch$git_status$git_commit$custom$go$python$cmd_duration$memory_usage$battery$status$time
+[└─](#ffffff)$character"""
+
+# Disable the blank line at the start of the prompt
+# add_newline = false
+
+# Wait 10 milliseconds for starship to check files under the current directory.
+scan_timeout = 10
+
+[character]
+#success_symbol = "[❯❯❯](bold white) "
+#error_symbol =   "[❯❯❯](bold red) "
+# some variants    ➤ 
+success_symbol = "[➤ ](#50fa7b) "
+error_symbol =   "[➤ ](#ff5555) "
+
+[shell]
+disabled = false
+
+[shlvl]
+disabled = false
+format = " [ Lv.$shlvl ](bold white)"
+threshold = 2
+
+[username]
+disabled = true
+show_always = true
+style_user ="#50fa7b" 
+style_root = "#ff5555"
+format = "[ $user]($style)"
+
+[hostname]
+style = "#8be9fd"
+ssh_only = false
+format =  "[]($style)[ $hostname](#ffffff) "
+trim_at = ".companyname.com"
+disabled = false
+
+[directory]
+style = "bold #bd93f9"
+read_only_style = "#ff5555"
+fish_style_pwd_dir_length = 3
+format = "[$read_only]($read_only_style)[ ]($style)[$path](#ffffff) "
+truncation_length = 4 
+truncation_symbol = ".../"
+read_only = " "
+
+[git_status]
+conflicted = " "
+untracked  = "？"
+stashed    = " "
+modified   = " "
+staged     = " "
+renamed    = " "
+deleted    = "✘ "
+style = "#ffb86c"
+ahead = "▲ ${count}"
+behind = "▼ ${count}"
+diverged = "▲ ${ahead_count} ▼ ${behind_count}"
+
+[git_branch]
+style = "bold underline #bd93f9"
+
+[cmd_duration]
+format = "[ $duration](bold white)"
+
+[time]
+disabled = true
+format = '[ $time](underline white) '
+time_format = "%T"
+utc_time_offset = "+9"
+
+[status]
+style = "#ff5555"
+symbol = " "
+not_executable_symbol = "🚫"
+not_found_symbol = " "
+sigint_symbol = " "
+signal_symbol = " "
+format = ' [\[$symbol$common_meaning$signal_name$maybe_int\]]($style) '
+map_symbol = true
+disabled = false
+
+[memory_usage]
+disabled = true
+threshold = -1
+symbol = " "
+style = "bold underline white"
+
+[[battery.display]]
+threshold = 10
+style = "bold #ff5555"
+
+[python]
+style = "bold #50fa7b"
+symbol = " "
+format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
+
+[custom.git_remote_url]
+description = 'Remote git repository'
+when = 'git rev-parse --is-inside-work-tree'
+command = """
+GIT_REMOTE=$(command git ls-remote --get-url 2> /dev/null)
+GIT_REMOTE_URL=$(echo $GIT_REMOTE | sed -E 's/^https?:\\/\\/(.+@)?//; s/\\.git$//; s/.+@(.*):(.*)$/\\1\\/\\2/; s/\\/$//')
+if [[ "$GIT_REMOTE" =~ "github" ]]; then
+    GIT_REMOTE_SYMBOL=" "
+elif [[ "$GIT_REMOTE" =~ "gitlab" ]]; then
+    GIT_REMOTE_SYMBOL=" "
+elif [[ "$GIT_REMOTE" =~ "bitbucket" ]]; then
+    GIT_REMOTE_SYMBOL=" "
+elif [[ -n "$GIT_REMOTE" ]]; then
+    GIT_REMOTE_SYMBOL=" "
+else
+    GIT_REMOTE_SYMBOL=" "
+fi
+echo "$GIT_REMOTE_SYMBOL$GIT_REMOTE_URL"
+"""
+# Default format is according to the segmented-brackets preset (https://github.com/starship/starship/pull/2747)
+format = '\[[$output]($style)\]'
+# If you prefer the default Starship style, use the following
+# format = "at [$output]($style)"
+shell = ["bash", "--noprofile", "--norc"]
+style = 'blue'
+
+# Using a custom format to highlight current non-system python in a compact manner
+# - 🐍: python from virtual env is active
+# - 🦎: python from pyenv is active
+[custom.py]
+command = """ pv=$(python --version | grep -Eo "\\d+\\.\\d+"); if [ -n "$VIRTUAL_ENV" ]; then echo "$pv"; else echo "$pv"; fi """
+style = "blue"
+when = """ [[ -n "$VIRTUAL_ENV" || $PATH =~ /pyenv/ ]] """
+shell = ["bash", "--noprofile", "--norc"]
