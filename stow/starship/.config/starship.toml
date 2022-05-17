@@ -117,7 +117,7 @@ fi
 echo "$GIT_REMOTE_SYMBOL$GIT_REMOTE_URL"
 """
 # Default format is according to the segmented-brackets preset (https://github.com/starship/starship/pull/2747)
-format = '\[[$output]($style)\]'
+format = '\[[$output]($style)\] '
 # If you prefer the default Starship style, use the following
 # format = "at [$output]($style)"
 shell = ["bash", "--noprofile", "--norc"]
