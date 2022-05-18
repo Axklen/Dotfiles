@@ -436,18 +436,6 @@ alias rmgitcache="rm -r ~/.cache/git"
 #moving your personal files and folders from /personal to ~
 alias personal='cp -Rf /personal/* ~'
 
-#git without pager
-alias git="git --no-pager"
-
-#java ls
-alias eclipse.jdt.ls="jdtls"
-
-#gnu stow for dotfiles
-alias stow="stow --target=$HOME"
-
-# sudoedit
-alias se="sudoedit"
-
 #create a file called .zshrc-personal and put all your personal aliases
 #in there. They will not be overwritten by skel.
 

@@ -23,26 +23,48 @@ export GTK_USE_PORTAL=1
 
 # aliases
 #####################################################################
-# nvim
+# lvim
 alias v="lvim"
 alias vim="lvim"
+
 # bat
 alias cat="bat"
-# toolbox
+
+# lsd
 alias ls="lsd"
 alias l='ls -l'
 alias la='ls -a'
 alias lla='ls -la'
 alias lt='ls --tree'
+
 # zshcfg
 alias zshcfg="lvim ~/.zshrc-personal"
+
 # lvim
 alias nvimupdate="echo '=>Updateing Nvim ...';sudo sh /personal/101-install-neovim-nighly.sh"
 alias lunarupdate="nvimupdate;echo '\n=>Updating lunarvim';pushd ./ > /dev/null;cd $HOME/.local/share/lunarvim/lvim;git pull;echo '\n=>Updating lvim abz-cfg';cd $HOME/git/lvim;git pull;popd > /dev/null;popd > /dev/null"
+
 # mullvad
 alias mvUPde="wg-quick up ~/Documents/wireguard/mullvad-de5.conf"
 alias mvUPde="wg-quick down ~/Documents/wireguard/mullvad-de5.conf"
+
 # bpytop
 # alias top="bpytop"
 # top => bottom
 alias top="btm"
+
+# zoxiode
+alias cd="z"
+
+#git without pager
+# alias git="git --no-pager"
+
+#java ls
+alias eclipse.jdt.ls="jdtls"
+
+#gnu stow for dotfiles
+alias stow="stow --target=$HOME"
+
+# sudoedit
+alias se="sudoedit"
+
